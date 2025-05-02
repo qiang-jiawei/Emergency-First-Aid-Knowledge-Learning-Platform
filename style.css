@@ -1,0 +1,128 @@
+/* 新增视频和图片相关样式 */
+.video-item {
+    position: relative;
+    padding-left: 45px !important;
+}
+
+.video-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.image-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+    cursor: pointer;
+}
+
+.image-card:hover {
+    transform: translateY(-5px);
+}
+
+.image-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-bottom: 2px solid var(--medical-blue);
+}
+
+.image-label {
+    padding: 15px;
+    text-align: center;
+    color: var(--medical-blue);
+    font-weight: 500;
+}
+
+.video-container {
+    background: #000;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.video-player {
+    width: 100%;
+    height: 600px;
+}
+
+.full-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* 动效增强 */
+.course-item, .image-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes scaleIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.tertiary-view {
+    animation: scaleIn 0.4s ease-out;
+}
+/* 视频查看器相关 */
+.video-container {
+    background: #000;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 20px auto;
+    max-width: 1000px;
+}
+
+.video-player {
+    width: 100%;
+    height: 560px;
+}
+
+/* 图片查看器相关 */
+.full-image {
+    cursor: zoom-in;
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.image-toolbar {
+    margin-top: 30px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+/* 动效增强 */
+.zoom-controls button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    padding: 0;
+    margin: 5px;
+}
+
+@media (max-width: 768px) {
+    .video-player {
+        height: 300px;
+    }
+    
+    .image-toolbar {
+        flex-wrap: wrap;
+    }
+}
+.nav-button,header{color:#fff;text-align:center}.course-container,.nav-button{border-radius:8px;padding:20px}:root{--medical-blue:#2A5C8D;--alert-orange:#FF6B35;--safe-green:#7CB342;--hygiene-white:#F8F9FA;--neutral-gray:#6C757D}*{margin:0;padding:0;box-sizing:border-box;font-family:'Microsoft YaHei',sans-serif}body{background-color:var(--hygiene-white)}.container{max-width:1200px;margin:0 auto;padding:20px}header{margin:40px 0;background:linear-gradient(135deg,var(--medical-blue) 0,#1e3a5f 100%);padding:2rem;border-radius:12px}h1{color:#fff;font-size:2.5em;margin-bottom:10px;text-shadow:1px 1px 3px rgba(0,0,0,.2)}.nav-button,h2{font-size:1.2em}h2{color:rgba(255,255,255,.9)}.button-group{display:flex;flex-direction:column;gap:20px;max-width:400px;margin:50px auto}.nav-button{background:linear-gradient(135deg,var(--medical-blue) 0,var(--safe-green) 100%);text-decoration:none;transition:transform .3s,box-shadow .3s;box-shadow:0 4px 6px rgba(42,92,141,.1)}.nav-button:hover{background:linear-gradient(135deg,#1e3a5f 0,#5e8c31 100%);transform:translateY(-2px);box-shadow:0 6px 12px rgba(42,92,141,.2)}.course-container{background:#fff;box-shadow:0 4px 6px rgba(0,0,0,.05);border:1px solid rgba(42,92,141,.1)}.pdf-viewer,.team-member:hover{box-shadow:0 8px 16px rgba(0,0,0,.1)}.course-item{padding:15px;margin:10px 0;background:var(--hygiene-white);border-left:4px solid var(--medical-blue);border-radius:4px;cursor:pointer;transition:.3s}.course-item:hover{background:rgba(42,92,141,.05);transform:translateX(5px)}.pdf-viewer{margin-top:30px;background:#fff;border-radius:8px;padding:20px;border:1px solid rgba(42,92,141,.1)}.about-content,.creation-content{background:#fff;padding:30px;box-shadow:0 4px 6px rgba(0,0,0,.05);line-height:1.6}.about-content{border-radius:8px;border:1px solid rgba(42,92,141,.1)}.about-content h3{color:var(--medical-blue);margin:20px 0 10px;border-bottom:2px solid var(--safe-green);padding-bottom:.5rem}.detail-section ul{margin:10px 0 20px 25px;color:var(--neutral-gray)}.creation-content{border-radius:8px}.timeline-section{position:relative;padding-left:30px;margin:40px 0}.timeline-marker{background:var(--safe-green);box-shadow:0 0 0 2px var(--safe-green)}.design-card{background:rgba(124,179,66,.05);border:1px solid rgba(124,179,66,.1)}.team-member{background:#fff;box-shadow:0 4px 6px rgba(0,0,0,.05);border:1px solid rgba(42,92,141,.1);transition:.3s}.team-member:hover{transform:translateY(-5px)}.fun-fact{background:#fff9e6;border-left:4px solid var(--alert-orange)}.team-timeline{border-left:2px solid var(--medical-blue)}.date{background:var(--alert-orange)}.event{background:rgba(42,92,141,.05)}.secondary-view,.tertiary-view{transition:opacity .3s}.hidden{display:none;opacity:0}.back-button{display:inline-block;margin-bottom:20px;color:var(--medical-blue);text-decoration:none;padding:8px 15px;border-radius:20px;transition:background .2s}.back-button:hover{background:rgba(42,92,141,.1)}.double-button-group{display:flex;gap:15px;width:100%}.sub-button{flex:1;padding:15px!important;font-size:1em!important}@media (max-width:768px){.container{padding:10px}h1{font-size:2em}.nav-button{padding:15px}.detail-section li{font-size:.95em}.pdf-header{flex-direction:column;align-items:flex-start}.tertiary-view .back-button{align-self:flex-start}#pdf-viewer{height:calc(100vh - 150px)}.double-button-group{flex-direction:column;gap:10px}.sub-button{width:100%;padding:12px!important}}

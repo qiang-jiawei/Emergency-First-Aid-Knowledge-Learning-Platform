@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>图片查看器</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* 图片查看器专属样式 */
+        .image-container {
+            position: relative;
+            max-width: 90%;
+            margin: 20px auto;
+            transition: transform 0.3s;
+        }
+
+        .image-toolbar {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .zoom-controls {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(255,255,255,0.9);
+            padding: 10px;
+            border-radius: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="tertiary-view">
+            <div class="pdf-header">
+                <a href="image-learn.html" class="back-button">← 返回列表</a>
+                <h3 id="image-title">教学图片</h3>
+            </div>
+
+            <div class="image-container">
+                <img id="main-image" class="full-image" 
+                     alt="教学示意图"
+                     onclick="toggleZoom()">
+            </div>
+
+            <div class="image-toolbar">
+                <button onclick="zoomIn()" class="btn btn-primary">放大</button>
+                <button onclick="zoomOut()" class="btn btn-primary">缩小</button>
+                <button onclick="resetZoom()" class="btn btn-primary">重置</button>
+            </div>
+
+            <div class="zoom-controls">
+                <button onclick="zoomIn()" class="btn btn-primary">+</button>
+                <button onclick="zoomOut()" class="btn btn-primary">-</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 获取URL参数
+        const urlParams = new URLSearchParams(window.location.search);
+        const imageFile = urlParams.get('img');
+        const imageTitle = urlParams.get('t');
+
+        // 初始化变量
+        let scale = 1;
+        const imageElement = document.getElementById('main-image');
+        
+        // 设置页面内容
+        document.getElementById('image-title').textContent = imageTitle;
+        imageElement.src = `images/fullsize/${imageFile}`;
+
+        // 缩放功能
+        function updateZoom() {
+            imageElement.style.transform = `scale(${scale})`;
+        }
+
+        function zoomIn() {
+            scale += 0.1;
+            updateZoom();
+        }
+
+        function zoomOut() {
+            if(scale > 0.2) scale -= 0.1;
+            updateZoom();
+        }
+
+        function resetZoom() {
+            scale = 1;
+            updateZoom();
+        }
+
+        function toggleZoom() {
+            scale = scale === 1 ? 1.5 : 1;
+            updateZoom();
+        }
+
+        // 添加键盘控制
+        document.addEventListener('keydown', (e) => {
+            if(e.key === '+') zoomIn();
+            if(e.key === '-') zoomOut();
+            if(e.key === '0') resetZoom();
+        });
+    </script>
+</body>
+</html>

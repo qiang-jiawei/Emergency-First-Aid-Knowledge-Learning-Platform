@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>视频查看器</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* 视频播放器专属样式 */
+        .video-controls {
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        
+        .video-info {
+            text-align: center;
+            margin: 20px 0;
+            color: var(--medical-blue);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="tertiary-view">
+            <div class="pdf-header">
+                <a href="video-learn.html" class="back-button">← 返回列表</a>
+                <h3 id="video-title">教学视频</h3>
+            </div>
+            
+            <div class="video-container">
+                <video id="main-video" controls class="video-player">
+                    <source id="video-source" type="video/mp4">
+                    您的浏览器不支持视频标签
+                </video>
+            </div>
+
+            <div class="video-info">
+                <p id="video-description"></p>
+                <div class="video-controls">
+                    <button onclick="togglePlay()" class="btn btn-primary">播放/暂停</button>
+                    <button onclick="toggleFullscreen()" class="btn btn-primary">全屏</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 获取URL参数
+        const urlParams = new URLSearchParams(window.location.search);
+        const videoFile = urlParams.get('v');
+        const videoTitle = urlParams.get('t');
+
+        // 设置页面内容
+        document.getElementById('video-title').textContent = videoTitle;
+        document.getElementById('video-source').src = `videos/${videoFile}`;
+        const videoElement = document.getElementById('main-video');
+
+        // 自动加载视频
+        videoElement.load();
+
+        // 控制函数
+        function togglePlay() {
+            videoElement.paused ? videoElement.play() : videoElement.pause();
+        }
+
+        function toggleFullscreen() {
+            if (videoElement.requestFullscreen) {
+                videoElement.requestFullscreen();
+            } else if (videoElement.webkitRequestFullscreen) {
+                videoElement.webkitRequestFullscreen();
+            }
+        }
+
+        // 添加键盘控制
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') togglePlay();
+        });
+    </script>
+</body>
+</html>

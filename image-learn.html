@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>图片学习</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* 新增列表样式 */
+        .image-list-view {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 30px;
+        }
+        
+        .image-list-item {
+            padding: 16px 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            border-left: 4px solid var(--medical-blue);
+        }
+        
+        .image-list-item:hover {
+            transform: translateX(8px);
+            background: rgba(42,92,141,0.05);
+        }
+        
+        .image-list-item::before {
+            content: "🖼️";
+            margin-right: 12px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="secondary-view">
+            <a href="index.html" class="back-button">← 返回首页</a>
+            <h2 class="module-title">教学图谱库</h2>
+            <div id="image-list" class="image-list-view"></div>
+        </div>
+
+        <!-- 三级界面保持不变 -->
+        <div class="tertiary-view hidden">
+            <div class="pdf-header">
+                <button class="back-button" onclick="closeImageViewer()">← 返回列表</button>
+                <h3 id="image-title"></h3>
+            </div>
+            <div id="image-viewer"></div>
+        </div>
+    </div>
+
+    <script>
+        const imageCourses = [
+            { name: "应急救护的目的和原则", file: "应急救护的目的和原则.jpg" },
+            { name: "应急救护程序", file: "应急救护程序.jpg" },
+            { name: "生命教育-人道伴行", file: "生命教育-人道伴行.jpg" },
+            { name: "如何正确拨打120", file: "如何正确拨打120.jpg" },
+            { name: "急救包", file: "急救包.jpg" },
+            { name: "溺水自救海报", file: "溺水自救海报.jpg" },
+            { name: "溺水互救海报", file: "溺水互救海报.jpg" },
+            { name: "溺水岸上救护海报", file: "溺水岸上救护海报.jpg" },
+            { name: "预防感染", file: "预防感染.jpg" },
+            { name: "自身做起，保护他人健康", file: "自身做起.jpg" },
+            { name: "出行防护1", file: "出行防护1.jpg" },
+            { name: "出行防护2", file: "出行防护2.jpg" },
+            { name: "成人心肺复苏", file: "ChengRenCPR.png" },
+            { name: "儿童心肺复苏", file: "ErTongCPR.png" },
+            { name: "婴儿心肺复苏", file: "YingErCPR.png" },
+            { name: "自动体外除颤仪（AED）的使用方法", file: "AEDDeShiYongFangFa.png" },
+            { name: "成人气道异物梗阻的现场处理", file: "ChengRenQiDaoYiWuGengZu.png" },
+            { name: "婴儿气道异物梗阻的现场处理", file: "yingerqidaoyiwugengzu.png" },
+            { name: "绷带环形包扎与螺旋包扎", file: "BengDaiHuanXingBaoZaYvLuoXuanBaoZa.png" },
+            { name: "绷带8字包扎", file: "BengDai8ZiBaoZa.png" },
+            { name: "踝关节扭伤的现场处理", file: "HuaiGuanJieNiuShangDeXianChangChuLi.png" },
+            { name: "前臂骨折的现场固定方式", file: "QianBiGuZheDeXianChangGuDingFangFa.png" },
+            { name: "大腿骨折的现场固定方式", file: "DaTuiGuZheDeXianChangGuDingFangFa.png" },
+            { name: "电击伤", file: "DianJiShang.png" },
+            { name: "烧烫伤", file: "ShaoTangShang.png" },
+            { name: "急性食物中毒的处理和预防", file: "JiXingShiWuZhongDuDeChuLiHeYvFang.png" },
+            { name: "一氧化碳中毒的现场处理", file: "YiYangHuaTanZhongDuDeXianChangChuLi.png" },
+            { name: "急性冠脉综合征", file: "JiXingGuanMaiZongHeZheng.png" },
+            { name: "脑卒中", file: "NaoCuZhong.png" },
+            { name: "癫痫的现场处理", file: "DianXianDeXianChangChuLi.png" },
+            { name: "呼吸困难的现场处理方法", file: "HuXiKunNanDeXianChangChuLiFangFa.png" }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('image-list');
+            imageCourses.forEach(img => {
+                const div = document.createElement('div');
+                div.className = 'image-list-item';
+                div.textContent = img.name;
+                div.onclick = () => viewImage(img);
+                container.appendChild(div);
+            });
+        });
+
+        function viewImage(img) {
+            window.location.href = `image-viewer.html?img=${encodeURIComponent(img.file)}&t=${encodeURIComponent(img.name)}`;
+            document.querySelector('.secondary-view').classList.add('hidden');
+            document.querySelector('.tertiary-view').classList.remove('hidden');
+            
+            document.getElementById('image-title').textContent = img.name;
+            document.getElementById('image-viewer').innerHTML = `
+                <img src="images/fullsize/${img.file}" class="full-image">
+            `;
+        }
+
+        function closeImageViewer() {
+            document.querySelector('.tertiary-view').classList.add('hidden');
+            document.querySelector('.secondary-view').classList.remove('hidden');
+            document.getElementById('image-viewer').innerHTML = '';
+        }
+    </script>
+</body>
+</html>

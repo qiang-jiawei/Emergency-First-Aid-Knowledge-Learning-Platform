@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>学习模块</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 二级界面 -->
+        <div class="secondary-view">
+            <a href="index.html" class="back-button">← 返回首页</a>
+            <h2 class="module-title">学习课程</h2>
+            <div id="course-list" class="course-container"></div>
+        </div>
+
+        <!-- 三级界面（PDF查看器） -->
+        <div class="tertiary-view hidden">
+            <div class="pdf-header">
+                <button class="back-button" onclick="closePDFViewer()">← 返回课程列表</button>
+                <h3 id="pdf-title"></h3>
+            </div>
+            <div id="pdf-viewer" class="pdf-viewer"></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    const courseList = document.getElementById('course-list');
+    
+    courses.forEach(course => {
+        const div = document.createElement('div');
+        div.className = 'course-item';
+        div.textContent = course.name;
+        div.onclick = () => showPDF(course);
+        courseList.appendChild(div);
+    });
+});
+          const courses = [
+            { name: "2020年国际急救、复苏和教育指南（完整版）", file: "2020年国际急救、复苏和教育指南（完整版）.pdf" },
+            { name: "触电", file: "触电急救.pdf" },
+            { name: "登革热", file: "登革热.pdf" },
+            { name: "癫痫", file: "癫痫急救.pdf" },
+            { name: "冻伤", file: "冻伤.pdf" },
+            { name: "发烧", file: "发烧急救.pdf" },
+            { name: "肝炎", file: "骨折急救.pdf" },
+            { name: "关节扭伤", file: "过敏反应急救.pdf" },
+            { name: "呼吸道异物梗阻", file: "呼吸道异物梗阻急救.pdf" },
+            { name: "化学物质造成的烧伤", file: "化学物质造成的烧伤.pdf" },
+            { name: "昏迷", file: "昏迷的急救.pdf" },
+            { name: "肌肉痉挛", file: "急性腹痛急救.pdf" },
+            { name: "急性心肌梗死", file: "急性心肌梗死急救.pdf" },
+            { name: "脚扎伤", file: "脚扎伤.pdf" },
+            { name: "结膜炎", file: "结膜炎.pdf" },
+            { name: "结核病", file: "结核病.pdf" },
+            { name: "酒精中毒", file: "酒精中毒急救.pdf" },
+            { name: "口腔、咽喉烧烫伤", file: "口腔、咽喉烧烫伤.pdf" },
+            { name: "流感预防", file: "流感预防.pdf" },
+            { name: "麻疹", file: "麻疹.pdf" },
+            { name: "煤气中毒", file: "煤气中毒急救.pdf" },
+            { name: "免受心理创伤与现场心理救助", file: "免受心理创伤与现场心理救助.pdf" },
+            { name: "灭鼠药中毒", file: "灭鼠药中毒急救.pdf" },
+            { name: "脑卒中", file: "脑卒中的急救.pdf" },
+            { name: "溺水", file: "溺水急救.pdf" },
+            { name: "农药中毒", file: "农药中毒急救.pdf" },
+            { name: "如何正确拨打应急电话", file: "如何正确拨打应急电话.pdf" },
+            { name: "食物中毒", file: "食物中毒急救.pdf" },
+            { name: "手足口病", file: "手足口病.pdf" },
+            { name: "哮喘", file: "哮喘急救.pdf" },
+            { name: "休克", file: "休克急救.pdf" },
+            { name: "眼内异物", file: "眼内异物.pdf" },
+            { name: "鱼刺卡喉", file: "鱼刺卡喉急救.pdf" },
+            { name: "晕厥", file: "晕厥急救.pdf" },
+            { name: "中毒", file: "中毒急救.pdf" },
+            { name: "中暑", file: "中暑急救.pdf" },
+        ];
+        function showPDF(course) {
+            // 隐藏二级界面
+            document.querySelector('.secondary-view').classList.add('hidden');
+            
+            // 显示三级界面
+            const tertiaryView = document.querySelector('.tertiary-view');
+            tertiaryView.classList.remove('hidden');
+            
+            // 设置PDF标题
+            document.getElementById('pdf-title').textContent = course.name;
+            
+            // 加载PDF
+            const viewer = document.getElementById('pdf-viewer');
+            viewer.innerHTML = `
+                <iframe 
+                    src="pdfs/${course.file}" 
+                    width="100%" 
+                    height="600px">
+                </iframe>
+            `;
+        }
+
+        function closePDFViewer() {
+            document.querySelector('.tertiary-view').classList.add('hidden');
+            document.querySelector('.secondary-view').classList.remove('hidden');
+            document.getElementById('pdf-viewer').innerHTML = ''; // 清空PDF
+        }
+
+        // 修改点击事件传递完整课程对象
+        courses.forEach(course => {
+            div.onclick = () => showPDF(course);
+        });
+    </script>
+</body>
+</html>

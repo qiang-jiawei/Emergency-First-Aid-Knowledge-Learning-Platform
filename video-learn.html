@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>视频学习</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="secondary-view">
+            <a href="index.html" class="back-button">← 返回首页</a>
+            <h2 class="module-title">教学视频库</h2>
+            <div id="video-list" class="course-container"></div>
+        </div>
+
+        <!-- 三级界面 -->
+        <div class="tertiary-view hidden">
+            <div class="pdf-header">
+                <button class="back-button" onclick="closeVideoPlayer()">← 返回列表</button>
+                <h3 id="video-title"></h3>
+            </div>
+            <div id="video-player" class="video-container"></div>
+        </div>
+    </div>
+
+    <script>
+        const videoCourses = [
+            { name: "应急救护-地震逃生", file: "地震逃生.mp4" },
+            { name: "应急救护-火灾逃生", file: "火灾逃生.mp4" },
+            { name: "应急救护-水灾逃生", file: "水灾逃生.mp4" },
+            { name: "应急救护-溺水救援", file: "溺水救援.mp4" },
+            { name: "红十字运动历史1", file: "红十字运动历史-1阶段.mp4" },
+            { name: "红十字运动历史2", file: "红十字运动历史-2阶段.mp4" },
+            { name: "红十字运动历史3", file: "红十字运动历史-3阶段.mp4" },
+            { name: "红十字运动历史4", file: "红十字运动历史-4阶段.mp4" },
+            { name: "救在身边-心肺复苏", file: "救在身边——心肺复苏动画.mp4" },
+            { name: "救在身边", file: "救在身边宣传片.mp4" },
+            { name: "儿童动画-家庭安全", file: "家庭安全.mp4" },
+            { name: "儿童动画-交通安全", file: "交通安全.mp4" },
+            { name: "儿童动画-消防安全", file: "消防安全.mp4" },
+            { name: "儿童动画-地震安全", file: "地震安全.mp4" }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('video-list');
+            videoCourses.forEach(video => {
+                const div = document.createElement('div');
+                div.className = 'course-item video-item';
+                div.innerHTML = `
+                    <i class="video-icon">▶️</i>
+                    <span>${video.name}</span>
+                `;
+                div.onclick = () => playVideo(video);
+                container.appendChild(div);
+            });
+        });
+
+        function playVideo(video) {
+            window.location.href = `video-viewer.html?v=${encodeURIComponent(video.file)}&t=${encodeURIComponent(video.name)}`;
+            document.querySelector('.secondary-view').classList.add('hidden');
+            document.querySelector('.tertiary-view').classList.remove('hidden');
+            
+            document.getElementById('video-title').textContent = video.name;
+            document.getElementById('video-player').innerHTML = `
+                <video controls autoplay class="video-player">
+                    <source src="videos/${video.file}" type="video/mp4">
+                    您的浏览器不支持视频播放
+                </video>
+            `;
+        }
+
+        function closeVideoPlayer() {
+            document.querySelector('.tertiary-view').classList.add('hidden');
+            document.querySelector('.secondary-view').classList.remove('hidden');
+            document.getElementById('video-player').innerHTML = '';
+        }
+    </script>
+</body>
+</html>
